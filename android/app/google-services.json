@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "10627001288",
+    "project_id": "movii-48f1f",
+    "storage_bucket": "movii-48f1f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:10627001288:android:6169f8b1c6005fd2606efd",
+        "android_client_info": {
+          "package_name": "br.edu.ifpi.movii"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "10627001288-7ioe4ptqerknodj2c3fqtp3rv7ujop53.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.edu.ifpi.movii",
+            "certificate_hash": "d6c30330e39835df78add41b03a59629dd162ad0"
+          }
+        },
+        {
+          "client_id": "10627001288-bqnoe0uj9p00tdopdpbevejdkjueehid.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmQyQHusavETp4yTpNvTRPt78zKFD5SKo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "10627001288-bqnoe0uj9p00tdopdpbevejdkjueehid.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
