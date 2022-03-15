@@ -11,9 +11,6 @@ import 'package:movii/map.dart';
 import 'package:movii/user.dart';
 import 'dart:developer';
 
-
-
-
 GoogleSignIn _googleSignIn = GoogleSignIn(
   // Optional clientId
   //clientId: '479882132969-9i9aqik3jfjd7qhci1nqf0bm2g71rm1u.apps.googleusercontent.com',
@@ -25,10 +22,13 @@ GoogleSignIn _googleSignIn = GoogleSignIn(
 
 void main() {
   runApp(
-    ModularApp(module: AppModule(), child: AppWidget()),
+    ModularApp(
+      module: AppModule(),
+      child: AppWidget(),
+      
+    ),
   );
 }
-
 
 class SignInDemo extends StatefulWidget {
   @override
@@ -72,7 +72,7 @@ class SignInDemoState extends State<SignInDemo> {
       return;
     }
     final Map<String, dynamic> data =
-    json.decode(response.body) as Map<String, dynamic>;
+        json.decode(response.body) as Map<String, dynamic>;
     final String? namedContact = _pickFirstNamedContact(data);
     setState(() {
       if (namedContact != null) {
@@ -86,12 +86,12 @@ class SignInDemoState extends State<SignInDemo> {
   String? _pickFirstNamedContact(Map<String, dynamic> data) {
     final List<dynamic>? connections = data['connections'] as List<dynamic>?;
     final Map<String, dynamic>? contact = connections?.firstWhere(
-          (dynamic contact) => contact['names'] != null,
+      (dynamic contact) => contact['names'] != null,
       orElse: () => null,
     ) as Map<String, dynamic>?;
     if (contact != null) {
       final Map<String, dynamic>? name = contact['names'].firstWhere(
-            (dynamic name) => name['displayName'] != null,
+        (dynamic name) => name['displayName'] != null,
         orElse: () => null,
       ) as Map<String, dynamic>?;
       if (name != null) {
@@ -115,7 +115,7 @@ class SignInDemoState extends State<SignInDemo> {
     final GoogleSignInAccount? user = _currentUser;
     if (user != null) {
       controller_user.getUser(user.email);
-      if (controller_user.email==''){
+      if (controller_user.email == '') {
         controller_user.setEmail(user.email);
         controller_user.setCampus('cacor');
         controller_user.setCampus_desc('Corrente');
@@ -154,7 +154,7 @@ class SignInDemoState extends State<SignInDemo> {
             ),
             onPressed: () {
               final Future future =
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return MyMap(user: controller_user.user);
               }));
               future.then((user) {
@@ -173,19 +173,22 @@ class SignInDemoState extends State<SignInDemo> {
             width: 200.0,
             height: 200.0,
             decoration: BoxDecoration(
-             shape: BoxShape.circle,
-             image: DecorationImage(
+              shape: BoxShape.circle,
+              image: DecorationImage(
                 alignment: Alignment.center,
                 image: AssetImage('assets/ico_bus.png'),
-             ), //AssetImage("assets/Serenity.png"),
+              ), //AssetImage("assets/Serenity.png"),
             ),
-           ),
+          ),
           const Text('Você não está logado.'),
-          ElevatedButton(
-            child: const Text('ENTRAR'),
-            onPressed: _handleSignIn,
-            style: ElevatedButton.styleFrom(
-                primary: Colors.green,
+          SizedBox(
+            width: 180,
+            height: 60,
+            child: FloatingActionButton.extended(
+              onPressed: _handleSignIn,
+              label: const Text("ENTRAR"),
+              backgroundColor: Colors.green,
+              icon: Icon(Icons.mail),
             ),
           ),
         ],
@@ -203,7 +206,6 @@ class SignInDemoState extends State<SignInDemo> {
         body: ConstrainedBox(
           constraints: const BoxConstraints.expand(),
           child: _buildBody(),
-        )
-    );
+        ));
   }
 }
