@@ -36,11 +36,11 @@ abstract class _HomeControllerBase with Store {
   }
   @action
   getUser(email) async {
-    carro = await repository.getUser(email);
+    user = await repository.getUser(email);
   }
   @action
   getCarro(campus_sigla) async {
-    user = await repository.getCarro(campus_sigla);
+    carro = await repository.getCarro(campus_sigla);
   }
   @observable
   String latitude = '';

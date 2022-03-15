@@ -56,6 +56,8 @@ class MapSampleState extends State<MapSample> {
       updatePinOnMap();
       if (user.carro) {
         savePosition();
+        busLatitude = double.parse(controller_user.user.latitude);
+        busLongitude = double.parse(controller_user.user.longitude);
       }else{
         controller_user.getCarro(user.campus_sigla);
         busLatitude = double.parse(controller_user.carro.latitude);
@@ -93,8 +95,8 @@ class MapSampleState extends State<MapSample> {
       zoom: CAMERA_ZOOM,
       tilt: CAMERA_TILT,
       bearing: CAMERA_BEARING,
-      target: LatLng(double.parse(currentLocation!.latitude.toString()),
-        double.parse(currentLocation!.longitude.toString())),
+      //target: LatLng(double.parse(currentLocation!.latitude.toString()), double.parse(currentLocation!.longitude.toString())),
+      target: LatLng(busLatitude!, busLongitude!),
     );
     final GoogleMapController controller = await _controller.future;
     controller.animateCamera(
@@ -102,20 +104,12 @@ class MapSampleState extends State<MapSample> {
     );   // do this inside the setState() so Flutter gets notified
     // that a widget update is due
     setState(() {
-      if (user.carro) {
-        _markers.add(Marker(
-            markerId: MarkerId('bus'),
-            position: LatLng(double.parse(currentLocation!.latitude.toString()),
-                double.parse(currentLocation!.longitude.toString())),
-            icon: busIcon
-        ));
-      }else{
+        log(busLatitude!.toString()+","+busLongitude!.toString());
         _markers.add(Marker(
             markerId: MarkerId('bus'),
             position: LatLng(busLatitude!, busLongitude!),
             icon: busIcon
         ));// updated position
-      }
     });
   }
 
@@ -161,6 +155,10 @@ class MapSampleState extends State<MapSample> {
     );
   }
     return new Scaffold(
+      appBar: AppBar(
+        title: const Text('Movi - IFPI'),
+        backgroundColor: Colors.green,
+      ),
       body: GoogleMap(
         mapType: MapType.normal,
         markers: _markers,
