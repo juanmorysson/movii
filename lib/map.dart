@@ -39,9 +39,11 @@ class MapSampleState extends State<MapSample> {
 
   BitmapDescriptor paradaIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor busIcon = BitmapDescriptor.defaultMarker;
+  BitmapDescriptor busIconInat = BitmapDescriptor.defaultMarker;
   LocationData? currentLocation = null;
   double? busLatitude = null;
   double? busLongitude = null;
+  bool carro_ativo = false;
   Location location = Location.instance;
 
   MapSampleState(this.user);
@@ -62,6 +64,11 @@ class MapSampleState extends State<MapSample> {
         controller_user.getCarro(user.campus_sigla);
         busLatitude = double.parse(controller_user.carro.latitude);
         busLongitude = double.parse(controller_user.carro.longitude);
+        if (controller_user.carro.hora.difference( DateTime.now() ).inSeconds > -10){
+          carro_ativo = true;
+        }else{
+          carro_ativo = false;
+        }
       }
     });
   }
@@ -108,7 +115,7 @@ class MapSampleState extends State<MapSample> {
         _markers.add(Marker(
             markerId: MarkerId('bus'),
             position: LatLng(busLatitude!, busLongitude!),
-            icon: busIcon
+            icon: carro_ativo?busIcon:busIconInat
         ));// updated position
     });
   }
@@ -123,6 +130,11 @@ class MapSampleState extends State<MapSample> {
         ImageConfiguration(devicePixelRatio: 2.5),
         'assets/ico_bus_loc.png').then((onValue) {
             busIcon = onValue;
+    });
+    BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(devicePixelRatio: 2.5),
+        'assets/ico_bus_inat.png').then((onValue) {
+      busIconInat = onValue;
     });
   }
   void setInitialLocation() async {   // set the initial location by pulling the user's

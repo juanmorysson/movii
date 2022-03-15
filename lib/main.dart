@@ -122,6 +122,13 @@ class SignInDemoState extends State<SignInDemo> {
         controller_user.addUser();
       }
       return Column(
+        children: [
+
+
+      SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height*0.3,
+        child:Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           ListTile(
@@ -131,39 +138,67 @@ class SignInDemoState extends State<SignInDemo> {
             title: Text(user.displayName ?? ''),
             subtitle: Text(user.email),
           ),
-          const Text('Login Aceito.'),
-          Text(_contactText),
-          ElevatedButton(
-            child: const Text('SAIR'),
-            onPressed: _handleSignOut,
-            style: ElevatedButton.styleFrom(
-              primary: Colors.green,
-            ),
+          Padding(
+            padding: EdgeInsets.all(16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              SizedBox(
+                  width: MediaQuery.of(context).size.width*0.5,
+                  height: MediaQuery.of(context).size.height*0.03,
+                  child: const Text('Login Aceito.', textAlign: TextAlign.center,)
+              ),
+              FloatingActionButton.extended(
+                onPressed: () => _handleGetContact(user),
+                label: const Text(""),
+                backgroundColor: Colors.green,
+                icon: Icon(Icons.update),
+              ),
+              FloatingActionButton.extended(
+                onPressed: _handleSignOut,
+                label: const Text(""),
+                backgroundColor: Colors.green,
+                icon: Icon(Icons.logout),
+              ),
+            ],
           ),
-          ElevatedButton(
-            child: const Text('ATUALIZAR'),
-            onPressed: () => _handleGetContact(user),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.green,
-            ),
           ),
-          ElevatedButton(
-            child: const Text('MAPA'),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.green,
-            ),
-            onPressed: () {
-              final Future future =
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return MyMap(user: controller_user.user);
-              }));
-              future.then((user) {
-                //teste
-              });
-            },
-          ),
+          Text(_contactText, textAlign: TextAlign.center,),
+
         ],
-      );
+      ),
+      ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width*0.9,
+                height: MediaQuery.of(context).size.height*0.5,
+                child: const Text("Campus: Corrente", textAlign: TextAlign.center,),
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width*0.9,
+                height: 60,
+                child: FloatingActionButton.extended(
+                  onPressed: () {
+                    final Future future =
+                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      return MyMap(user: controller_user.user);
+                    }));
+                    future.then((user) {
+                      //teste
+                    });
+                  },
+                  label: const Text("MAPA"),
+                  backgroundColor: Colors.green,
+                  icon: Icon(Icons.map),
+                ),
+              ),
+
+            ],
+          )
+        ]);
     } else {
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -182,7 +217,7 @@ class SignInDemoState extends State<SignInDemo> {
           ),
           const Text('Você não está logado.'),
           SizedBox(
-            width: 180,
+            width: MediaQuery.of(context).size.width*0.5,
             height: 60,
             child: FloatingActionButton.extended(
               onPressed: _handleSignIn,

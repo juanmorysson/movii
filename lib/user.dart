@@ -9,6 +9,7 @@ class UserModel {
     required this.location,
     required this.admin,
     required this.carro,
+    required this.hora,
   });
 
   final int id;
@@ -20,6 +21,7 @@ class UserModel {
   final String location;
   final bool admin;
   final bool carro;
+  final DateTime hora;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
     id: json['id'] == null ? null : json['id'],
@@ -31,6 +33,7 @@ class UserModel {
     location: json['location'] == null ? "" : json['location'],
     admin: json['admin'],
     carro: json['carro'],
+    hora: json['hora'] == null ? DateTime.now() : DateTime.parse(json['hora']),
 
   );
 }

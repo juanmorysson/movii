@@ -69,6 +69,7 @@ flutter:
     - assets/bus-stop.png
     - assets/boy.png
     - assets/ico_bus_loc.png
+    - assets/ico_bus_inat.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

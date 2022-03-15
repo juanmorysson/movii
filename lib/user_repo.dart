@@ -23,6 +23,7 @@ class UserRepository {
           location
           admin
           carro
+          hora
         }
       }
     ''';
@@ -49,6 +50,7 @@ class UserRepository {
           location
           admin
           carro
+          hora
         }
       }
     ''';
@@ -76,6 +78,7 @@ class UserRepository {
           location
           admin
           carro
+          hora
         }
       }
     ''';
@@ -93,7 +96,7 @@ class UserRepository {
   Future<String> addUser(String email, String campus_sigla, String campus_desc) async {
     var query = """
       mutation addUser(\$email:String!, \$campus_sigla:String!, \$campus_desc:String!){
-      insert_usuario(objects: {email: \$email, campus_sigla: \$campus_sigla, campus_desc: \$campus_desc}) {
+      insert_usuario(objects: {email: \$email, campus_sigla: \$campus_sigla, campus_desc: \$campus_desc, hora: "now()"}) {
         returning {
           email
         }
@@ -112,7 +115,7 @@ class UserRepository {
   Future<String> savePosition(String email, String latitude, String longitude) async {
     var query = """
       mutation savePosition(\$email:String!, \$latitude:String!, \$longitude:String!) {
-      update_usuario(where: {email: {_eq: \$email}}, _set: {latitude: \$latitude, longitude: \$longitude}) {
+      update_usuario(where: {email: {_eq: \$email}}, _set: {latitude: \$latitude, longitude: \$longitude, hora: "now()"}) {
         affected_rows
         returning {
           email
