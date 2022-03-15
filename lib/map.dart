@@ -160,7 +160,7 @@ class MapSampleState extends State<MapSample> {
         bearing: CAMERA_BEARING
     );
   }
-    return new Scaffold(
+    return  Scaffold(
       body: GoogleMap(
         mapType: MapType.normal,
         markers: _markers,
